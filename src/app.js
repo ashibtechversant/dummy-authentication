@@ -1,10 +1,10 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const { port } = require('../config/index');
 
 const app = express();
 dotenv.config();
 dotenv.config({ path: '.env.local' });
-const { PORT } = process.env;
 
 // Middlewares
 app.use(express.json());
@@ -28,4 +28,4 @@ app.use('/auth', authRouter);
 app.use('/users', userRouter);
 
 // Start the server
-app.listen(PORT);
+app.listen(port);
