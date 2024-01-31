@@ -1,6 +1,4 @@
-const jwt = require('jsonwebtoken');
-
-const { JWT_SECRET_KEY } = process.env;
+const { verifyToken } = require('../utils/jwt-utils');
 
 // Middleware to authenticate user based on JWT token
 const authenticate = (req, res, next) => {
@@ -8,9 +6,8 @@ const authenticate = (req, res, next) => {
   if (!token) {
     return res.status(401).json({ message: 'Unauthorized - Missing Token' });
   }
-
   try {
-    const decoded = jwt.verify(token, JWT_SECRET_KEY);
+    const decoded = verifyToken(token);
     req.user = decoded;
     next();
   } catch (error) {
